@@ -1,3 +1,27 @@
+.card-title {
+  max-width: 60%;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 18px;
+  width: 100%;
+  margin: 25px 0;
+}
+
+.card-prof {
+  border-radius: 50%;
+}
+
+.card {
+  margin-bottom: 18px;
+  margin-right: 18px;
+  min-width:380px;
+}
+
 .rendu {
   color:green;
 }
@@ -17,20 +41,6 @@
   align-self: flex-end;
 }
 
-table {
-  width: 100%;
-}
-
-.mat-column-id {
-  color:red;
-}
-
-.example-viewport {
-  height: 400px;
-  width: 100%;
-  border: 1px solid black;
-}
-
-.example-item {
-  height: 150px;
+.mat-card-title.card-title{
+  width: 300px;
 }

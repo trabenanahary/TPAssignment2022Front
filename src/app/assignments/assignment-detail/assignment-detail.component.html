@@ -1,9 +1,56 @@
-<mat-card *ngIf="assignmentTransmis">
-  <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
-  <mat-card-subtitle>{{assignmentTransmis.dateDeRendu | date:"dd/MM/yy"}}</mat-card-subtitle>
+<mat-card class="card">
+  <mat-card-title-group *ngIf="!editClicked">
+    <mat-card-subtitle>{{data.dateDeRendu | date:"dd/MM/yy"}}</mat-card-subtitle>
+    <mat-card-title class="card-title">{{data.titre}}</mat-card-title>
+    <img class="card-prof" width="50" height="50" src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+  </mat-card-title-group>
+  <mat-card-title-group style="display:flex; flex-direction:column; justify-content:flex-start;" *ngIf="editClicked">
+    <form class="marginForm" [formGroup]="editAssignmentGroup" (ngSubmit)="editAssignment(data._id)">
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Titre</mat-label>
+            <input type="text" matInput formControlName="titre">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Date de rendu</mat-label>
+          <input type="date" matInput placeholder="la date actuelle: {{data.dateDeRendu | date:'dd/MM/yy'}}" formControlName="dtRendu">
+        </mat-form-field>
+      </p>
+      <button mat-raised-button style="margin: 10px 10px 0 0;" (click)="onClickNote()" color="warn" type="submit">Annuler</button>
+      <button mat-raised-button style="margin-top: 10px;" color="primary" type="submit">Valider</button>
+    </form>
+  </mat-card-title-group>
+  <mat-card-content class="card-content">
+    <p *ngIf="data.rendu">{{data.note}}/20</p>
+    <p *ngIf="!data.rendu && !noteClicked && !editClicked" appNonRendu class="card-title">note non attribuée</p>
+    <p *ngIf="!noteClicked">{{data.remarques}}</p>
+    <form class="marginForm" *ngIf="noteClicked && !editClicked" [formGroup]="aNoterGroup" (ngSubmit)="noter(data._id)">
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Note</mat-label>
+          <div class="note">
+            <input type="number" matInput formControlName="note">
+            <span>/20</span>
+          </div>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Remarques</mat-label>
+          <textarea matInput formControlName="remarques"></textarea>
+        </mat-form-field>
+      </p>
+      <p style="margin: 15px 0;">{{data.eleveRef.nom}}</p>
+      <button mat-raised-button style="margin: 10px 10px 0 0;" (click)="onClickNote()" color="warn" type="submit">Annuler</button>
+      <button mat-raised-button style="margin-top: 10px;" color="primary" type="submit">Valider</button>
+    </form>
+  </mat-card-content>
   <div id="bottom">
-    <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">Rendu</mat-checkbox>
-    <button mat-stroked-button color="primary" (click)="onClickEdit()" [disabled]="!isLoggedIn()">EDIT</button>
-    <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isLoggedIn()">DELETE</button>
+    <!--<mat-checkbox *ngIf="!data.rendu && data.notes" (click)="onAssignmentRendu()">Rendu</mat-checkbox>-->
+    <button mat-stroked-button color="primary" *ngIf="!data.rendu && data.note == -1" (click)="onClickNote()" [disabled]="!isLoggedIn()">À NOTER</button>
+    <button mat-stroked-button color="primary" *ngIf="!data.rendu" (click)="onClickEdit()" [disabled]="!isLoggedIn()">EDITER</button>
+    <button mat-raised-button color="warn" *ngIf="!data.rendu" (click)="onDelete(data._id)" [disabled]="!isLoggedIn()">SUPPRIMER</button>
   </div>
 </mat-card>

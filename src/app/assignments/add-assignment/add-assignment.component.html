@@ -1,4 +1,62 @@
-<form ngForm #assignmentForm (submit)="onSubmit(); assignmentForm.reset()" class="form">
+<mat-stepper linear #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Matière</ng-template>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Selectionner Matière</mat-label>
+          <mat-select (selectionChange)="onSelectMatiere($event)" formControlName="matiere" name="matiere">
+            <mat-option *ngFor="let m of matieres" [value]="m">
+              {{m.nom}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard" disabled>
+          <mat-label>Prof</mat-label>
+          <input type="text" [value] = "prof" matInput formControlName="prof">
+        </mat-form-field>
+      </p>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Détails</ng-template>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Titre</mat-label>
+          <input type="text" matInput formControlName="titre">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Date de rendu</mat-label>
+          <input type="date" matInput formControlName="dtRendu">
+        </mat-form-field>
+      </p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Confirmation</ng-template>
+    <p>Valider votre Assignment</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button color="primary" (click)="valider()">Valider</button>
+      <p style="color:tomato">{{error}}</p>
+    </div>
+  </mat-step>
+</mat-stepper>
+
+<!--<form ngForm #assignmentForm (submit)="onSubmit(); assignmentForm.reset()" class="form">
   <mat-form-field>
     <input matInput placeholder="Nom de l'assignment" [(ngModel)]="nomAssignment" name="nom" required>
   </mat-form-field>
@@ -13,4 +71,4 @@
     <button mat-stroked-button color="primary" [disabled]="((!this.nomAssignment) || (!this.dateDeRendu))">
       Ajouter un devoir
     </button>
-</form>
+</form>-->
