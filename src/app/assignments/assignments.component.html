@@ -6,6 +6,24 @@
   </a>
 
   <h2>Liste des devoirs :</h2>
+  <div class="barrePagination">
+    <p>Page courante : {{page}}, assignments visibles : {{pagingCounter}} - {{pagingCounter + limit-1}}, nbPages total {{totalPages}}</p>
+    <p>Nb assignments par page : <input type="range" min=5 max=100 [(ngModel)]="limit" (change)="getAssignments()">
+      {{limit}}
+    </p>
+
+    <button mat-flat-button color="primary" [disabled]="!hasPrevPage" (click)="premierePage()">Première page</button>
+    &nbsp;
+
+    <button mat-flat-button color="primary"
+            (click)="pagePrecedente()"
+            [disabled]="!hasPrevPage"
+    >Page précédente</button>
+    &nbsp;
+    <button mat-flat-button color="primary" (click)="pageSuivante()" [disabled]="!hasNextPage">Page suivante</button>
+    &nbsp;
+    <button mat-flat-button color="primary" (click)="dernierePage()" [disabled]="!hasNextPage">Dernière page</button>
+  </div>
   <mat-tab-group mat-align-tabs="start">
     <mat-tab label="Rendu">
       <div class="card-container">
