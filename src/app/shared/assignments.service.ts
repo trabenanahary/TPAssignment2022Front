@@ -14,7 +14,7 @@ export class AssignmentsService {
   private localProtocol = "http"
   private localPort = ":8010"
   //private url = (document.domain.startsWith("localhost") ? this.localProtocol : "https")+"://"+ document.domain + (document.domain.startsWith("localhost") ? this.localPort : "")+"/api"
-  private url = "https://tpmbdsmadagascarback.herokuapp.com/api/assignments";
+  private url = "https://tpmbdsmadagascarback.herokuapp.com/api";
   /*assignments:Assignment[] = [
     {
       id:1,
