@@ -150,7 +150,7 @@ export class AssignmentsService {
     bdInitialAssignments.forEach(a => {
       //let newAssignment = new Assignment();
       const newAssignment:any = new Assignment();
-      newAssignment.eleveRef = +a.eleveRef;
+      newAssignment.eleveRef = a.eleveRef;
       newAssignment.matiereRef = a.matiereRef;
       newAssignment.titre = a.titre;
       newAssignment.remarques = a.remarques;
