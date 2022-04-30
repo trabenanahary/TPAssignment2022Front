@@ -14,6 +14,8 @@ export class MatieresService {
     constructor(private http: HttpClient){}
 
     public getMatiereComplete() {
+        console.log("dans matiere complete");
+
         return this.http.get(this.url + "/matieresComplete");
       }
 }
